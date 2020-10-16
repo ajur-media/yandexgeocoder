@@ -1,0 +1,25 @@
+{
+    "name": "ajur-media/yandex-geo-coder",
+    "description": "PHP Library for geo-coding using Yandex.Geocoder",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Karel Wintersky",
+            "email": "karel.wintersky@yandex.ru"
+        }
+    ],
+    "require": {
+        "php": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AJUR\\Toolkit\\Geocoder\\": "source/"
+        }
+    },
+    "support": {
+        "source": "https://github.com/ajur-media/yandexgeocoder",
+        "issues": "https://github.com/ajur-media/yandexgeocoder/issues",
+        "wiki": "https://github.com/ajur-media/yandexgeocoder/wiki"
+    }
+}
