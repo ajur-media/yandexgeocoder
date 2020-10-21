@@ -7,7 +7,7 @@ namespace AJUR\Toolkit\YandexGeoCoder;
  * @package AJUR\Toolkit\YandexGeoCoder
  * @license The MIT License (MIT)
  */
-class Response
+class Response implements ResponseInterface
 {
     /**
      * @var GeoObject[]
@@ -29,7 +29,8 @@ class Response
     }
     
     /**
-     * Исходные данные
+     * Возвращает исходные данные
+     *
      * @return array
      */
     public function getData()
@@ -37,17 +38,11 @@ class Response
         return $this->_data;
     }
     
-    /**
-     * @return GeoObject[]
-     */
     public function getList()
     {
         return $this->_list;
     }
     
-    /**
-     * @return null|GeoObject
-     */
     public function getFirst()
     {
         $result = null;
@@ -58,10 +53,6 @@ class Response
         return $result;
     }
     
-    /**
-     * Возвращает исходный запрос
-     * @return string|null
-     */
     public function getQuery()
     {
         $result = null;
@@ -71,10 +62,6 @@ class Response
         return $result;
     }
     
-    /**
-     * Кол-во найденных результатов
-     * @return int
-     */
     public function getFoundCount()
     {
         $result = null;
@@ -84,14 +71,9 @@ class Response
         return $result;
     }
     
-    /**
-     * Широта в градусах. Имеет десятичное представление с точностью до семи знаков после запятой
-     * @return float|null
-     */
     public function getLatitude()
     {
         $result = null;
-        
         
         if (isset( $this->_data[ 'response' ][ 'GeoObjectCollection' ][ 'metaDataProperty' ][ 'GeocoderResponseMetaData' ][ 'Point' ][ 'pos' ] )) {
             list( , $latitude ) = explode( ' ', $this->_data[ 'response' ][ 'GeoObjectCollection' ][ 'metaDataProperty' ][ 'GeocoderResponseMetaData' ][ 'Point' ][ 'pos' ] );
@@ -100,10 +82,6 @@ class Response
         return $result;
     }
     
-    /**
-     * Долгота в градусах. Имеет десятичное представление с точностью до семи знаков после запятой
-     * @return float|null
-     */
     public function getLongitude()
     {
         $result = null;
@@ -114,3 +92,5 @@ class Response
         return $result;
     }
 }
+
+# -eof-

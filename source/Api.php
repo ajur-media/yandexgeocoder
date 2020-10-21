@@ -12,7 +12,7 @@ use AJUR\Toolkit\YandexGeoCoder\Exception\ServerError;
  * @license The MIT License (MIT)
  * @see http://api.yandex.ru/maps/doc/geocoder/desc/concepts/About.xml
  */
-class Api
+class Api implements ApiInterface
 {
     /** дом */
     const KIND_HOUSE = 'house';
@@ -62,25 +62,14 @@ class Api
      */
     protected $_response;
     
-    /**
-     * @param null|string $version
-     */
     public function __construct($version = null)
     {
-        if (!empty( $version )) {
+        if (!is_null( $version )) {
             $this->_version = (string)$version;
         }
         $this->clear();
     }
     
-    /**
-     * @param array $options Curl options
-     * @return $this
-     * @throws Exception
-     * @throws CurlError
-     * @throws ServerError
-     * @throws MapsError
-     */
     public function load(array $options = [])
     {
         $apiUrl = sprintf( 'https://geocode-maps.yandex.ru/%s/?%s', $this->_version, http_build_query( $this->_filters ) );
@@ -123,19 +112,11 @@ class Api
         return $this;
     }
     
-    /**
-     * @return Response
-     */
     public function getResponse()
     {
         return $this->_response;
     }
     
-    /**
-     * Очистка фильтров гео-кодирования
-     * @param bool $use_area_limit
-     * @return self
-     */
     public function clear()
     {
         $this->_filters = array(
@@ -151,13 +132,6 @@ class Api
         return $this;
     }
     
-    /**
-     * Гео-кодирование по координатам
-     * @see http://api.yandex.ru/maps/doc/geocoder/desc/concepts/input_params.xml#geocode-format
-     * @param float $longitude Долгота в градусах
-     * @param float $latitude Широта в градусах
-     * @return self
-     */
     public function setPoint($longitude, $latitude)
     {
         $longitude = (float)$longitude;
@@ -166,14 +140,6 @@ class Api
         return $this;
     }
     
-    /**
-     * Географическая область поиска объекта
-     * @param float $lengthLng Разница между максимальной и минимальной долготой в градусах
-     * @param float $lengthLat Разница между максимальной и минимальной широтой в градусах
-     * @param null|float $longitude Долгота в градусах
-     * @param null|float $latitude Широта в градусах
-     * @return self
-     */
     public function setArea($lengthLng, $lengthLat, $longitude = null, $latitude = null)
     {
         $lengthLng = (float)$lengthLng;
@@ -187,81 +153,47 @@ class Api
         return $this;
     }
     
-    /**
-     * Позволяет ограничить поиск объектов областью, заданной self::setArea()
-     * @param boolean $areaLimit
-     * @return self
-     */
     public function useAreaLimit($areaLimit)
     {
         $this->_filters[ 'rspn' ] = $areaLimit ? 1 : 0;
         return $this;
     }
     
-    /**
-     * Гео-кодирование по запросу (адрес/координаты)
-     * @param string $query
-     * @return self
-     */
     public function setQuery($query)
     {
         $this->_filters[ 'geocode' ] = (string)$query;
         return $this;
     }
     
-    /**
-     * Вид топонима (только для обратного геокодирования)
-     * @param string $kind
-     * @return self
-     */
     public function setKind($kind)
     {
         $this->_filters[ 'kind' ] = (string)$kind;
         return $this;
     }
     
-    /**
-     * Максимальное количество возвращаемых объектов (по-умолчанию 10)
-     * @param int $limit
-     * @return self
-     */
-    public function setLimit($limit)
+    public function setLimit($limit = 10)
     {
         $this->_filters[ 'results' ] = (int)$limit;
         return $this;
     }
     
-    /**
-     * Количество объектов в ответе (начиная с первого), которое необходимо пропустить
-     * @param int $offset
-     * @return self
-     */
     public function setOffset($offset)
     {
         $this->_filters[ 'skip' ] = (int)$offset;
         return $this;
     }
     
-    /**
-     * Предпочитаемый язык описания объектов
-     * @param string $lang
-     * @return self
-     */
     public function setLang($lang)
     {
         $this->_filters[ 'lang' ] = (string)$lang;
         return $this;
     }
     
-    /**
-     * Ключ API Яндекс.Карт
-     * @see https://tech.yandex.ru/maps/doc/geocoder/desc/concepts/input_params-docpage
-     * @param string $token
-     * @return self
-     */
     public function setToken($token)
     {
         $this->_filters[ 'apikey' ] = (string)$token;
         return $this;
     }
 }
+
+# -eof-

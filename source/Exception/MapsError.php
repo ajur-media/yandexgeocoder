@@ -11,5 +11,6 @@ use AJUR\Toolkit\YandexGeoCoder\Exception;
  */
 class MapsError extends Exception
 {
-
 }
+
+# -eof-

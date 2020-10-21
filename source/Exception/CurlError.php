@@ -12,3 +12,5 @@ use AJUR\Toolkit\YandexGeoCoder\Exception;
 class CurlError extends Exception
 {
 }
+
+# -eof-
