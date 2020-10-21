@@ -1,7 +1,8 @@
 {
     "name": "ajur-media/yandex-geo-coder",
-    "description": "PHP Library for geo-coding using Yandex.Geocoder",
     "type": "library",
+    "description": "PHP Library for geo-coding using Yandex.Geocoder",
+    "keywords": ["api", "yandex", "geo", "geocode", "geocoder", "maps"],
     "license": "MIT",
     "authors": [
         {
