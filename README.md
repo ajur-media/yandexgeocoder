@@ -81,3 +81,7 @@ foreach ($collection as $n => $item) {
 ========
 
 MIT
+
+TODO
+====
+- [ ] add \Psr\Logger as second argument to API constructor
